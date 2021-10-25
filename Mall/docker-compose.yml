@@ -23,6 +23,20 @@ services:
     networks:
       - mynetwork
 
+  goods-server:
+    depends_on:
+      - mysql5
+    build: goods-server/
+    restart: always
+    environment:
+      USERNAME: root
+      PASSWORD: password
+      DB_URL: mysql5:3306/mall
+    ports:
+      - 9999:9999
+    networks:
+      - mynetwork
+
   frontend:
     depends_on:
       - user-server

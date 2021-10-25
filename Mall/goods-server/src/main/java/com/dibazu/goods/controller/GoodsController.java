@@ -63,4 +63,9 @@ public class GoodsController {
         //TODO
         return goodsService.getGoodsByKeyword(goods.getName());
     }
+
+    @GetMapping(value = "/goods/test")
+    public String test() {
+        return "test succ";
+    }
 }

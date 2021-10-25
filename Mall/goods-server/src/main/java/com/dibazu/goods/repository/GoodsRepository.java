@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface GoodsRepository extends JpaRepository<Goods, Integer> {
     List<Goods> findGoodsBySeller(String seller);
     List<Goods> findByNameContaining(String name);
-    Optional<Goods> findById(Integer id);
+    //Optional<Goods> findById(Integer id);
 }
