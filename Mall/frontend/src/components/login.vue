@@ -67,6 +67,12 @@
         <el-button
           type="primary"
           style="width: 40%; background: #afb4db; border: none"
+          v-on:click="checkpwd"
+          >check</el-button
+        >
+        <el-button
+          type="primary"
+          style="width: 40%; background: #afb4db; border: none"
           v-on:click="findAll"
           >getAll</el-button
         >
@@ -121,7 +127,33 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-          alert("error");
+          alert("error catch");
+        });
+    },
+    checkpwd() {
+      this.$axios
+        .post("/api/login", {
+          username: this.loginForm.username,
+          nickname: "nickname",
+          password: this.loginForm.password,
+          address: "this.loginForm.address",
+          phone: "12345678965",
+          authority: "3",
+        })
+        .then((resp) => {
+          if (resp.status === 200) {
+            if(resp.data === ""){
+              this.msg = "pwd wrong"
+            } else {
+              this.msg = resp.data
+            };
+          } else {
+            alert("error");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          alert("error catch");
         });
     },
     findAll() {
@@ -136,7 +168,7 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-          alert("error");
+          alert("error catch");
         });
     },
   },

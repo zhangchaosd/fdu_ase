@@ -36,8 +36,10 @@ public class UserServiceImpl implements UserService {
     public Integer checkpwd(User user) {
         Optional<User> tuser = userRepository.findByUsername(user.getUsername());
         if(tuser.isPresent()) {
-            if(user.getPassword() == tuser.get().getPassword())
+            if(user.getPassword().equals(tuser.get().getPassword()))
+            {
                 return 1;
+            }
         }
         return 0;
     }
