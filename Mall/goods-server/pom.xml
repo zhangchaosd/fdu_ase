@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.dibazu</groupId>
-    <artifactId>user</artifactId>
+    <artifactId>goods</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>user</name>
-    <description>the description for user</description>
+    <name>goods</name>
+    <description>the description for goods</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
