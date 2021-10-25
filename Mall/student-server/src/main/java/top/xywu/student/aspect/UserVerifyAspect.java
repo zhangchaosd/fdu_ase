@@ -1,4 +1,4 @@
-package top.dibazu.user.aspect;
+package top.xywu.student.aspect;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 @Aspect
 @Component
 public class UserVerifyAspect {
-    @Pointcut("execution(public * top.dibazu.user.controller.*.*(..))" +
-            "&& !execution(public * top.dibazu.user.controller.HelloController.say(..))")
+    @Pointcut("execution(public * top.xywu.student.controller.*.*(..))" +
+            "&& !execution(public * top.xywu.student.controller.HelloController.say(..))")
     public void verify() {
     }
 

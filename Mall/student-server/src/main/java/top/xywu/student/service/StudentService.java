@@ -1,6 +1,6 @@
-package top.dibazu.user.service;
+package top.xywu.student.service;
 
-import top.dibazu.user.entity.Student;
+import top.xywu.student.entity.Student;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
-package top.dibazu.user.controller;
+package top.xywu.student.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import top.dibazu.user.config.StudentProperties;
+import top.xywu.student.config.StudentProperties;
 
 import javax.annotation.Resource;
 

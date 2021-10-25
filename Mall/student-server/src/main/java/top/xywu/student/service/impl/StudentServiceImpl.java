@@ -1,11 +1,11 @@
-package top.dibazu.user.service.impl;
+package top.xywu.student.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import top.dibazu.user.entity.Student;
-import top.dibazu.user.repository.StudentRepository;
-import top.dibazu.user.service.StudentService;
+import top.xywu.student.entity.Student;
+import top.xywu.student.repository.StudentRepository;
+import top.xywu.student.service.StudentService;
 
 import javax.annotation.Resource;
 import java.util.List;

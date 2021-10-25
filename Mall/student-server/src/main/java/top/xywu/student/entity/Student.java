@@ -1,4 +1,4 @@
-package top.dibazu.user.entity;
+package top.xywu.student.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
