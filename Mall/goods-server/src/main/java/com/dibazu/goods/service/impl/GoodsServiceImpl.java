@@ -29,7 +29,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public List<Goods> getGoodsBySeller(String seller) {
-        return goodsRepository.getGoodsBySeller(seller);
+        return goodsRepository.findGoodsBySeller(seller);
     }
 
     @Override
