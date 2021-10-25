@@ -1,8 +1,8 @@
-package top.xywu.student.repository;
+package top.dibazu.user.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import top.xywu.student.entity.Student;
+import top.dibazu.user.entity.Student;
 
 import java.util.List;
 

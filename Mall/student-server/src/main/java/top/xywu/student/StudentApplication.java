@@ -1,11 +1,11 @@
-package top.xywu.student;
+package top.dibazu.user;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import top.xywu.student.entity.Student;
-import top.xywu.student.repository.StudentRepository;
+import top.dibazu.user.entity.Student;
+import top.dibazu.user.repository.StudentRepository;
 
 import java.util.List;
 
