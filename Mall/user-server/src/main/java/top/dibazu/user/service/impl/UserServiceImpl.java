@@ -9,6 +9,7 @@ import top.dibazu.user.service.UserService;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -23,7 +24,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Integer save(User user) {
-        Optional<Customer> tuser = userRepository.findByUsername(user.getUsername());
+        Optional<User> tuser = userRepository.findByUsername(user.getUsername());
         if(tuser.isPresent()) {
             return 0;
         }
@@ -33,9 +34,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Integer checkpwd(User user) {
-        Optional<Customer> tuser = userRepository.findByUsername(user.getUsername());
+        Optional<User> tuser = userRepository.findByUsername(user.getUsername());
         if(tuser.isPresent()) {
-            if(user.getPassword() == tuser.getPassword())
+            if(user.getPassword() == tuser.get().getPassword())
                 return 1;
         }
         return 0;

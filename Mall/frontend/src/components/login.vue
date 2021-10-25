@@ -17,12 +17,44 @@
           placeholder="username"
         ></el-input>
       </el-form-item>
+      <el-form-item prop="nickname">
+        <el-input
+          type="text"
+          v-model="loginForm.nickname"
+          auto-complete="off"
+          placeholder="nickname"
+        ></el-input>
+      </el-form-item>
+      <el-form-item prop="password">
+        <el-input
+          type="text"
+          v-model="loginForm.password"
+          auto-complete="off"
+          placeholder="password"
+        ></el-input>
+      </el-form-item>
+      <el-form-item prop="address">
+        <el-input
+          type="text"
+          v-model="loginForm.address"
+          auto-complete="off"
+          placeholder="address"
+        ></el-input>
+      </el-form-item>
       <el-form-item prop="phone">
         <el-input
           type="phone"
           v-model="loginForm.phone"
           auto-complete="off"
           placeholder="phone"
+        ></el-input>
+      </el-form-item>
+      <el-form-item prop="authority">
+        <el-input
+          type="number"
+          v-model="loginForm.authority"
+          auto-complete="off"
+          placeholder="authority"
         ></el-input>
       </el-form-item>
       <el-form-item style="width: 100%">
@@ -51,11 +83,19 @@ export default {
     return {
       loginForm: {
         username: "",
+        nickname: "",
+        password: "",
+        address: "",
         phone: "",
+        authority: "",
       },
       rules: {
         username: [{ required: true, message: "", trigger: "blur" }],
+        nickname: [{ required: true, message: "", trigger: "blur" }],
+        password: [{ required: true, message: "", trigger: "blur" }],
+        address: [{ required: true, message: "", trigger: "blur" }],
         phone: [{ required: true, message: "", trigger: "blur" }],
+        authority: [{ required: true, message: "", trigger: "blur" }],
       },
       loading: false,
       msg: "",
@@ -64,9 +104,13 @@ export default {
   methods: {
     save() {
       this.$axios
-        .post("/api/students", {
+        .post("/api/register", {
           username: this.loginForm.username,
+          nickname: this.loginForm.nickname,
+          password: this.loginForm.password,
+          address: this.loginForm.address,
           phone: this.loginForm.phone,
+          authority: this.loginForm.authority,
         })
         .then((resp) => {
           if (resp.status === 200) {
@@ -82,7 +126,7 @@ export default {
     },
     findAll() {
       this.$axios
-        .get("/api/students")
+        .get("/api/all")
         .then((resp) => {
           if (resp.status === 200) {
             this.msg = resp.data;

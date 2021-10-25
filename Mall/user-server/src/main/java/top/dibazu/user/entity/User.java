@@ -73,11 +73,11 @@ public class User {
         this.phone = phone;
     }
 
-    public String getAuthority() {
+    public Integer getAuthority() {
         return authority;
     }
 
-    public void setAuthority(String authority) {
+    public void setAuthority(Integer authority) {
         this.authority = authority;
     }
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import top.dibazu.user.entity.User;
 import top.dibazu.user.service.UserService;
+//import top.dibazu.user.entity.Result;
 
 import javax.annotation.Resource;
 import javax.naming.spi.DirStateFactory.Result;
@@ -21,9 +22,9 @@ public class UserController {
         Integer ret = userService.save(user);
         if (ret == 1)
         {
-            return Result.ok(user);
+            return user;
         }
-        return Result.fail("重名");
+        return null;
     }
 
     @PostMapping(value = "/login")
@@ -31,13 +32,13 @@ public class UserController {
         Integer ret = userService.checkpwd(user);
         if (ret == 1)
         {
-            return Result.ok(user);
+            return user;
         }
-        return Result.fail("密码错误");
+        return null;
     }
 
-    //@GetMapping(value = "/login")
-    //public List<User> findAll() {
-    //    return studentService.findAll();
-    //}
+    @GetMapping(value = "/all")
+    public List<User> findAll() {
+        return userService.findAll();
+    }
 }
