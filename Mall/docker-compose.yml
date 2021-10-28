@@ -33,7 +33,7 @@ services:
       PASSWORD: password
       DB_URL: mysql5:3306/mall
     ports:
-      - 9999:9999
+      - 9998:9999
     networks:
       - mynetwork
 
