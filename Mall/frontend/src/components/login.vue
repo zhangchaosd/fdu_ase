@@ -161,7 +161,7 @@ export default {
         .get("/api/all")
         .then((resp) => {
           if (resp.status === 200) {
-            this.msg = resp.data;
+            //this.msg = resp.data;
           } else {
             alert("error");
           }
@@ -169,6 +169,19 @@ export default {
         .catch((error) => {
           console.log(error);
           alert("error catch");
+        });
+      this.$axios
+        .get("/api2/goods/test")
+        .then((resp) => {
+          if (resp.status === 200) {
+            this.msg = resp.data;
+          } else {
+            alert("error2");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          alert("error2 catch");
         });
     },
   },
