@@ -99,12 +99,10 @@ export default {
       if(!this.clientToken){
         alert('请先登录！');
         return this.$route.go(0);
-        return;
       }
       const res = addToFav({
-        token:this.clientToken,
-        goodsId:this.goodsId,
-        state:"ok"
+        username:this.clientToken,
+        goodsId:this.goodsId
       });
       res
       .then(()=>{
