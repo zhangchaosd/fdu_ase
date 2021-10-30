@@ -603,8 +603,8 @@ export function getComment(goodsId){
 }
 
 //关键词搜索商品
-export function searchGoods(keyword=''){
-	const res = axios.get('/api/mall/goods/searchGoods?keyword='+keyword);
+export function searchGoods(data){
+	const res = axios.get('/api/mall/goods/searchGoods', data);
 	return new Promise((resolve,reject)=>{
 		res
 		.then((result)=>{

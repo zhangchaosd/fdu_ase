@@ -75,7 +75,9 @@ export default {
       })
     },
     searchGoods(keyword){
-      const res = searchGoods(keyword);
+      const res = searchGoods({
+        keyword:keyword,
+      });
       res.then((data)=>{
         this.goodsList = data;
       })
