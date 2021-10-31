@@ -10,11 +10,11 @@
         <span>交易操作</span>
       </div>
       <ul class="orderList">
-        <li v-for="(item,index) in orderList" :key="'order'+item.goodsId">
+        <li v-for="(item,index) in orderList" :key="index">
           <div class="orderDetail">
             <img :src="item.img" alt="商品图片" />
             <div class="goodsName">
-              <p @click="navTo('/mall/goods/'+item.goodsId)">{{item.name}}</p>
+              <p @click="navTo('/mall/goods/'+item.goodsId)">{{item.name}}+{{index}}</p>
             </div>
             <span class="seller">{{item.seller}}</span>
             <span class="unitPrice">{{'￥'+item.price}}</span>
@@ -30,7 +30,7 @@
             <!-- <input @change="numberChange(item.id)" type="text" v-model="item.temGoodsNum" min="1" class="numInput" /> -->
             <span class="amount">{{'￥'+item.num*item.price}}</span>
             <span class="num">
-              <input type="checkbox" name="checkBoxTest" :value=index v-model="place" @change="selChange"/>
+              <input type="checkbox" v-model="picked[index]" @change="selChange(index)"/>
             </span>
             <button @click="deleteItemFromCart(index)">删除</button>
 
@@ -42,6 +42,7 @@
         <span class="total">{{'￥'+totalAmount}}</span>
         <button @click="settleAccounts">下单</button>
       </div>
+      <div>{{debugg}}</div>
     </div>
     <p class="emptyTips" v-else>购物车为空</p>
   </div>
@@ -72,6 +73,8 @@ export default {
   data () {
     return {
       orderList:[],
+      picked:[],
+      settleList:[],
     }
   },
 
@@ -108,8 +111,41 @@ export default {
           "seller": "seller2",
           "price": 500.0,
           "num": 2
+        },
+        {
+          "goodsId": 3,
+          "img": "http://115.29.141.32:8084/static/image/16188185954412.jpg",
+          "name": "phone2",
+          "seller": "seller2",
+          "price": 500.0,
+          "num": 2
+        },
+        {
+          "goodsId": 4,
+          "img": "http://115.29.141.32:8084/static/image/16188185954412.jpg",
+          "name": "phone2",
+          "seller": "seller2",
+          "price": 500.0,
+          "num": 2
+        },
+        {
+          "goodsId": 5,
+          "img": "http://115.29.141.32:8084/static/image/16188185954412.jpg",
+          "name": "phone2",
+          "seller": "seller2",
+          "price": 500.0,
+          "num": 2
+        },
+        {
+          "goodsId": 6,
+          "img": "http://115.29.141.32:8084/static/image/16188185954412.jpg",
+          "name": "phone2",
+          "seller": "seller2",
+          "price": 500.0,
+          "num": 2
         }
       ]
+      this.debugg="sfds"
       //TEST done
     },
     numberChange(itemId, itemNum, itemIndex){
@@ -152,25 +188,38 @@ export default {
       this.$router.push(route);
     },
     settleAccounts(){
-      let cartList = [];
-      this.orderList.map((item,index)=>{
-        cartList.push({
-          id:item.id,
-          goodsNum:item.goodsNum,
-          amount:item.amount
-        })
-      });
+      if(this.settleList.length==0){
+        alert('请选择要结算的商品');
+        return;
+      }
       const res = settleAccounts({
-        cartList:cartList
+        settleList:this.settleList,
       });
       res
       .then(()=>{
-        alert('下单成功！');
-        this.orderList = [];
+        alert('下单成功！,请去我的订单付款');
+        this.settleList = [];
+        getCartList();
       })
       .catch((e)=>{
         alert(e);
       })
+
+    },
+    selChange(index){
+      if(this.picked){
+        this.settleList.push(index);
+      }
+      else{
+        var index2 = this.settleList.findIndex(item => {
+          if (item == index) {
+            return true;
+          }
+        })
+        //TODO
+        this.settleList.splice(2,1)
+      }
+
     }
   },
 
