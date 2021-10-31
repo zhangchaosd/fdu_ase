@@ -3,6 +3,7 @@
     <div v-if="orderList.length>0">
       <div class="cartTableHeader">
         <span>商品信息</span>
+        <span>卖家</span>
         <span>单价</span>
         <span>数量</span>
         <span>小计</span>
@@ -15,6 +16,7 @@
             <div class="goodsName">
               <p @click="navTo('/mall/goods/'+item.goodsId)">{{item.name}}</p>
             </div>
+            <span class="seller">{{item.seller}}</span>
             <span class="unitPrice">{{'￥'+item.price}}</span>
             <span class="num">
               <NumberInput 
@@ -26,7 +28,7 @@
               />
             </span>
             <!-- <input @change="numberChange(item.id)" type="text" v-model="item.temGoodsNum" min="1" class="numInput" /> -->
-            <span class="amount">{{'￥'+item.amount}}</span>
+            <span class="amount">{{'￥'+item.num*item.price}}</span>
             <button @click="deleteItemFromCart(index)">删除</button>
           </div>
         </li>
@@ -58,7 +60,7 @@ export default {
     totalAmount(){
       let amount = 0;
       this.orderList.map((item,index)=>{
-        amount+=item.amount;
+        amount+=item.num*item.price;
       })
       return amount;
     }
@@ -84,6 +86,27 @@ export default {
       .catch((e)=>{
         alert(e);
       })
+      //TEST
+      this.orderList=
+      [
+        {
+          "goodsId": 1,
+          "img": "http://115.29.141.32:8084/static/image/16188185954412.jpg",
+          "name": "phone1",
+          "seller": "seller1",
+          "price": 500.0,
+          "num": 1
+        },
+        {
+          "goodsId": 2,
+          "img": "http://115.29.141.32:8084/static/image/16188185954412.jpg",
+          "name": "phone2",
+          "seller": "seller2",
+          "price": 500.0,
+          "num": 2
+        }
+      ]
+      //TEST done
     },
     numberChange(itemId, itemNum, itemIndex){
       const res = changeItemNumInCart({
@@ -175,9 +198,9 @@ export default {
     line-height: 40px;
     span{
       display: inline-block;
-      width: 14%;
+      width: 12%;
       &:first-child{
-        width:40%;
+        width:30%;
         text-align: center;
       }
     }
@@ -213,7 +236,7 @@ export default {
         .goodsName{
           display: inline-block;
           margin-left: 5px;
-          width: 230px;
+          width: 150px;
           vertical-align: top;
           p{
             cursor: pointer;
@@ -227,6 +250,14 @@ export default {
             display: block;
             margin-top: 10px;
           }
+        }
+        .seller{
+          display: inline-block;
+          vertical-align: top;
+          width: 10%;
+          height: 85px;
+          line-height: 85px;
+          text-align: center;
         }
         .unitPrice,.num,.amount{
           display: inline-block;

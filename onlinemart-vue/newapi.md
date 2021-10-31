@@ -272,6 +272,7 @@ GET
 			"goodsId": 1,
 			"img": "http://115.29.141.32:8084/static/image/16188185954412.jpg",
 			"name": "phone1",
+			"seller": "seller1",
 			"price": 500.0,
 			"num": 1
 		},
@@ -279,6 +280,7 @@ GET
 			"goodsId": 2,
 			"img": "http://115.29.141.32:8084/static/image/16188185954412.jpg",
 			"name": "phone2",
+			"seller": "seller2",
 			"price": 500.0,
 			"num": 2
 		}

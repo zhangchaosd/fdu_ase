@@ -4,7 +4,7 @@
       <ul class="orderList">
         <li v-for="(item,index) in orderList" :key="'order'+item.goodsId">
           <div class="orderDetail">
-            <img :src="item.img" alt="商品图片" />
+            <img :src="item.img" alt="商品图片" @click="navTo('/mall/goods/'+item.goodsId)" />
             <div class="goodsName">
               <p @click="navTo('/mall/goods/'+item.goodsId)">{{item.name}}</p>
             </div>
@@ -47,6 +47,23 @@ export default {
       .catch((e)=>{
         alert(e);
       })
+
+      //test
+      this.orderList = [
+        {
+          "goodsId": 1,
+          "img": "http://115.29.141.32:8084/static/image/16188185954412.jpg",
+          "name": "西服套装的",
+          "price": 500.0
+        }, {
+          "goodsId": 2,
+          "img": "http://115.29.141.32:8084/static/image/161sd54412.jpg",
+          "name": "水杯",
+          "price": 50.0
+        }
+      ]
+      //test done
+
     },
     deleteItemFromFav(itemId){
       const res = deleteItemFromFav({
