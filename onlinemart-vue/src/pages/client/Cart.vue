@@ -29,7 +29,11 @@
             </span>
             <!-- <input @change="numberChange(item.id)" type="text" v-model="item.temGoodsNum" min="1" class="numInput" /> -->
             <span class="amount">{{'￥'+item.num*item.price}}</span>
+            <span class="num">
+              <input type="checkbox" name="checkBoxTest" :value=index v-model="place" @change="selChange"/>
+            </span>
             <button @click="deleteItemFromCart(index)">删除</button>
+
           </div>
         </li>
       </ul>
@@ -262,7 +266,7 @@ export default {
         .unitPrice,.num,.amount{
           display: inline-block;
           vertical-align: top;
-          width: 15%;
+          width: 13%;
           height: 85px;
           line-height: 85px;
           text-align: center;
@@ -273,15 +277,18 @@ export default {
         }
         button{
           position: absolute;
-          right: 90px;
           bottom: 40px;
-          width: 70px;
+          width: 50px;
           height: 30px;
           border-radius: 3px;
           background-color: @falseColor;
           color:white;
           border: none;
 
+        }
+        .CheckBox{
+          position: relative;
+          top: 15px;
         }
       }
     }
