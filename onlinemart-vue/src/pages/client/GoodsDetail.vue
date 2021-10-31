@@ -28,7 +28,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import {getGoodsInfo,settleAccounts,getGoodsList,addToFav} from '../../api/client';
+import {getGoodsInfo,settleAccounts,getGoodsList,addToFav,addToCart} from '../../api/client';
 import NumberInput from '../../components/NumberInput';
 import Radio from '../../components/Radio';
 import GoodsItem from '../../components/GoodsItem';
@@ -86,9 +86,8 @@ export default {
         this.goodsImg = data.img;
         this.goodsName = data.name;
         this.goodsDesc = data.desc;
-        this.typeId = data.typeId;
+        this.goodsSeller = data.seller;
         this.price = data.price;
-        this.getTypeGoodsList(data.typeId);
       })
       .catch((e)=>{
         alert(e);
@@ -116,18 +115,15 @@ export default {
       if(!this.clientToken){
         alert('请先登录！');
         return this.$route.go(0);
-        return;
       }
         if (this.num < 1){
             alert('数量不能小于1')
             return;
         }
-      const res = addOrder({
-        token:this.clientToken,
+      const res = addToCart({
+        username:this.clientToken,
         goodsId:this.goodsId,
-        state:"ok",
         num:this.num,
-        amount:this.goodsPrice * this.num
       });
       res
       .then(()=>{
@@ -140,7 +136,7 @@ export default {
     settleAccounts(){
       if(!this.clientToken){
         alert('请先登录！');
-        return;
+        return this.$route.go(0);
       }
       if (this.num < 1){
           alert('数量不能小于1')
@@ -153,28 +149,18 @@ export default {
         amount:this.goodsPrice * this.num
       });
       const res = settleAccounts({
-        token:this.clientToken,
+        username:this.clientToken,
         cartList:cartList
       });
       res
       .then(()=>{
-        alert('自动付款成功！请耐心等待包裹派送~');
+        alert('下单成功，请去订单页面付款');
         this.orderList = [];
       })
       .catch((e)=>{
         alert(e);
       })
     },
-    getTypeGoodsList(typeId){
-      const res = getGoodsList(typeId);
-      res.then((data)=>{
-        this.goodsList = data;
-      })
-      .catch((e)=>{
-        alert(e);
-      })
-    },
-
   },
   created(){
     this.getGoodsInfo(this.id);

@@ -227,6 +227,31 @@ export function getCartList(data){
 	})
 }
 
+//加入购物车
+export function addToCart(data){
+	const res = axios.post('/api/mall/order/addToCart', data);
+	return new Promise((resolve,reject)=>{
+		res
+		.then((result)=>{
+	        if(result.status===200){
+	        	return result.data;
+	        }else{
+	        	reject(result.status)
+	        }
+	    })
+	    .then((json)=>{
+    		if(json.code===0){
+                resolve(json.data);
+            }else{
+                reject(json.message);
+            }
+    	})
+	    .catch((e)=>{
+	    	reject(e.toString())
+	    })
+	})
+}
+
 //改变购物车商品数量
 export function changeItemNumInCart(data){
 	const res = axios.post('/api/mall/order/changeItemNumInCart', data);

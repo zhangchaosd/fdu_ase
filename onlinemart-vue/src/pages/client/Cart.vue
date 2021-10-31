@@ -9,26 +9,25 @@
         <span>交易操作</span>
       </div>
       <ul class="orderList">
-        <li v-for="(item,index) in orderList" :key="'order'+item.id">
+        <li v-for="(item,index) in orderList" :key="'order'+item.goodsId">
           <div class="orderDetail">
             <img :src="item.img" alt="商品图片" />
             <div class="goodsName">
-              <p @click="navTo('/mall/goods/'+item.id)">{{item.name}}</p>
-              <span>{{item.spec}}</span>
+              <p @click="navTo('/mall/goods/'+item.goodsId)">{{item.name}}</p>
             </div>
-            <span class="unitPrice">{{'￥'+item.unitPrice}}</span>
+            <span class="unitPrice">{{'￥'+item.price}}</span>
             <span class="num">
               <NumberInput 
-                @changeHandle="numberChange(item.id,item.goodsNum)" 
-                :initNum="item.goodsNum" 
-                v-model="item.goodsNum" 
+                @changeHandle="numberChange(item.goodsId,item.num,index)" 
+                :initNum="item.num" 
+                v-model="item.num" 
                 :min="1" 
                 :max="999"
               />
             </span>
             <!-- <input @change="numberChange(item.id)" type="text" v-model="item.temGoodsNum" min="1" class="numInput" /> -->
             <span class="amount">{{'￥'+item.amount}}</span>
-            <button @click="deleteItemFromCart(item.id)">删除</button>
+            <button @click="deleteItemFromCart(index)">删除</button>
           </div>
         </li>
       </ul>
@@ -73,27 +72,30 @@ export default {
   methods:{
     getCartList(){
       const res = getCartList({
-        token:this.clientToken
+        username:this.clientToken
       });
       res
       .then((data)=>{
         this.orderList=data;
+        this.orderList.map((item,index)=>{
+          this.orderList.splice(index,1);//TOCHECK
+        })
       })
       .catch((e)=>{
         alert(e);
       })
     },
-    numberChange(itemId, itemNum){
+    numberChange(itemId, itemNum, itemIndex){
       const res = changeItemNumInCart({
-        token:this.clientToken,
-        itemId:itemId,
-        itemNum:itemNum
+        username:this.clientToken,
+        index:itemIndex,
+        num:itemNum
       });
       res
       .then(()=>{
         this.orderList.map((item,index)=>{
-          if(itemId===item.id){
-            item.amount = item.goodsNum*item.unitPrice;
+          if(itemId===item.goodsId){
+            item.amount = item.num*item.price;
           }
         })
       })
@@ -101,10 +103,10 @@ export default {
         alert(e);
       })
     },
-    deleteItemFromCart(itemId){
+    deleteItemFromCart(itemIndex){
       const res = deleteItemFromCart({
-        token:this.clientToken,
-        itemId:itemId
+        username:this.clientToken,
+        index:itemIndex
       });
       res
       .then(()=>{
