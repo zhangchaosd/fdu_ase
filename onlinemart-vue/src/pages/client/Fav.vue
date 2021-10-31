@@ -2,15 +2,14 @@
   <div class="Fav">
     <div v-if="orderList.length>0">
       <ul class="orderList">
-        <li v-for="(item,index) in orderList" :key="'order'+item.id">
+        <li v-for="(item,index) in orderList" :key="'order'+item.goodsId">
           <div class="orderDetail">
             <img :src="item.img" alt="商品图片" />
             <div class="goodsName">
-              <p @click="navTo('/mall/goods/'+item.id)">{{item.name}}</p>
-              <span>{{item.spec}}</span>
+              <p @click="navTo('/mall/goods/'+item.goodsId)">{{item.name}}</p>
             </div>
-            <span class="unitPrice">{{'￥'+item.unitPrice}}</span>
-            <button @click="deleteItemFromFav(item.id)">删除</button>
+            <span class="Price">{{'￥'+item.price}}</span>
+            <button @click="deleteItemFromFav(item.goodsId)">删除</button>
           </div>
         </li>
       </ul>
@@ -39,7 +38,7 @@ export default {
   methods:{
     getFavList(){
       const res = getFavList({
-        token:this.clientToken
+        username:this.clientToken
       });
       res
       .then((data)=>{
@@ -51,8 +50,8 @@ export default {
     },
     deleteItemFromFav(itemId){
       const res = deleteItemFromFav({
-        token:this.clientToken,
-        itemId:itemId
+        username:this.clientToken,
+        goodsId:itemId
       });
       res
       .then(()=>{
