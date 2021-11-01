@@ -76,7 +76,7 @@ export default {
   },
   data () {
     return {
-      tagList:['全部订单','待付款','待发货','已发货','已完成'],
+      tagList:['全部订单','待付款','待发货','已发货','已完成','已取消'],
       curIndex:0,
       orderList:[],
       popupShow:false,
@@ -92,13 +92,19 @@ export default {
   methods:{
     changeIndex(i){
       this.curIndex = i;
-      this.getOrderByState(this.curIndex-1);
+      this.getOrderByState({
+        username:this.clientToken,
+        state:this.curIndex-1
+      });
     },
     navTo(route){
       this.$router.push(route);
     },
     getOrderByState(state){
-      const res = getOrderByState(state,this.clientToken);
+      const res = getOrderByState({
+        username:this.clientToken,
+        state:-1
+      });
       res
       .then((data)=>{
         this.orderList=data

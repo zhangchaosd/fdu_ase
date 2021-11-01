@@ -147,15 +147,11 @@ export default {
           alert('数量不能小于1')
           return;
       }
-      let cartList = [];
-      cartList.push({
-        id:this.goodsId,
-        goodsNum:this.num,
-        amount:this.goodsPrice * this.num
-      });
-      const res = settleAccounts({
+      const res = buyNow({
         username:this.clientToken,
-        cartList:cartList
+        goodsId:this.id,
+        num:this.num,
+        specIndex:0,//TODO
       });
       res
       .then(()=>{

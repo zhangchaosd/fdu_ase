@@ -567,8 +567,307 @@ POST
 
 ```json
 {
-    "code": 0,
     "settleList":[0,2]
+}
+```
+
+**返回参数**
+
+| 参数名 | 参数类型 | 是否必须 | 说明     |
+| ------ | -------- | -------- | -------- |
+| code   | integer  | 必须     | 状态码   |
+| message | str      | 非必须   | 错误信息 |
+
+```json
+{
+	"code": 0
+}
+```
+
+#### 2.4.2 getOrderByState
+
+**接口说明**
+
+根据订单状态获取订单
+-1：'全部订单',
+0：'待付款',
+1：'待发货',
+2：'已发货',
+3：'已完成',
+4：'已取消'
+
+**请求方式**
+
+GET
+
+**URL**
+
+```
+/api/mall/order/getOrderByState
+```
+
+**请求参数**
+
+| 参数名 | 参数类型 | 是否必须 | 说明     |
+| ------ | -------- | -------- | -------- |
+| username  | str  | 必须     | 用户名 |
+| state  | integer      | 必须     | 订单状态 |
+
+```json
+{
+	"username":"username",
+    "state":1
+}
+```
+
+**返回参数**
+
+| 参数名 | 参数类型 | 是否必须 | 说明     |
+| ------ | -------- | -------- | -------- |
+| code   | integer  | 必须     | 状态码   |
+| data   | list     | 必须     | 订单列表 |
+
+```json
+{
+	"code": 0,
+	"data":{ 
+		"orderId":10,
+		"state":0,
+		"createtime": "2021-04-20 20:40:30",
+		"suborders":
+		[{
+			"orderId": 1811,
+			"goodsNum": 2,
+			"amount": 1000,
+			"seller": "seller1",
+			"goods": [{
+				"goodsId": 476,
+				"img": "http://115.29.141.32:8084/static/image/16188185954412.jpg",
+				"name": "西服套装的",
+				"specName": "16G + 512G",
+				"price": 500,
+				"num":1
+			},
+			{
+				"goodsId": 479,
+				"img": "http://115.29.141.32:8084/static/image/16188185954412.jpg",
+				"name": "西服套装的22222222222222",
+				"specName": "",
+				"price": 500,
+				"num":1
+			}]
+		}, {
+			"orderId": 1812,
+			"goodsNum": 1,
+			"amount": 500,
+			"seller": "seller2",
+			"goods": [{
+				"goodsId": 476,
+				"img": "http://115.29.141.32:8084/static/image/16188185954412.jpg",
+				"name": "西服套装的",
+				"specName": "16G + 512G",
+				"price": 500,
+				"num":1
+			}]
+		}]
+	}
+}
+```
+
+#### 2.4.4 pay
+
+**接口说明**
+
+确认付款
+
+**请求方式**
+
+GET
+
+**URL**
+
+```
+/api/mall/order/pay
+```
+
+**请求参数**
+
+| 参数名 | 参数类型 | 是否必须 | 说明   |
+| ------ | -------- | -------- | ------ |
+| id     | integer  | 必须     | 订单id |
+
+```html
+?id=10
+```
+
+**返回参数**
+
+| 参数名  | 参数类型 | 是否必须 | 说明     |
+| ------- | -------- | -------- | -------- |
+| code    | integer  | 必须     | 状态码   |
+| message | str      | 非必须   | 错误信息 |
+
+```json
+{"code":0}
+```
+
+
+### 2.4 editOrderInfo
+
+**接口说明**
+
+编辑订单的收货信息
+
+**请求方式**
+
+POST
+
+**URL**
+
+```
+/api/mall/order/editOrderInfo
+```
+
+**请求参数**
+
+| 参数名 | 参数类型 | 是否必须 | 说明     |
+| ------ | -------- | -------- | -------- |
+| orderId   | int     | 必须     | 订单id |
+| newName   | str     | 必须     | 新的收货人姓名 |
+| newPhone   | str     | 必须     | 新的收货手机号 |
+| newAddress   | str     | 必须     | 新的收货地址 |
+
+```json
+{
+    "orderId":10,
+	"newName":"小五",
+	"newPhone":12345678965,
+	"newAddress":"上海"
+}
+```
+
+**返回参数**
+
+| 参数名 | 参数类型 | 是否必须 | 说明     |
+| ------ | -------- | -------- | -------- |
+| code   | integer  | 必须     | 状态码   |
+| message | str      | 非必须   | 错误信息 |
+
+```json
+{
+	"code": 0
+}
+```
+
+### 2.4 cancelOrder
+
+**接口说明**
+
+取消订单
+
+**请求方式**
+
+POST
+
+**URL**
+
+```
+/api/mall/order/cancelOrder
+```
+
+**请求参数**
+
+| 参数名 | 参数类型 | 是否必须 | 说明     |
+| ------ | -------- | -------- | -------- |
+| orderId   | int     | 必须     | 要取消的订单号 |
+
+```json
+{
+    "orderId":10
+}
+```
+
+**返回参数**
+
+| 参数名 | 参数类型 | 是否必须 | 说明     |
+| ------ | -------- | -------- | -------- |
+| code   | integer  | 必须     | 状态码   |
+| message | str      | 非必须   | 错误信息 |
+
+```json
+{
+	"code": 0
+}
+```
+
+#### 2.4.6 confirmReceive
+
+**接口说明**
+
+确认收货
+
+**请求方式**
+
+GET
+
+**URL**
+
+```
+/api/mall/order/confirmReceive
+```
+
+**请求参数**
+
+| 参数名 | 参数类型 | 是否必须 | 说明   |
+| ------ | -------- | -------- | ------ |
+| id     | integer  | 必须     | 订单id |
+
+```html
+?id=10
+```
+
+**返回参数**
+
+| 参数名  | 参数类型 | 是否必须 | 说明     |
+| ------- | -------- | -------- | -------- |
+| code    | integer  | 必须     | 状态码   |
+| message | str      | 非必须   | 错误信息 |
+
+```json
+{"code":0}
+```
+
+### 1.3 buyNow
+
+**接口说明**
+
+立刻购买
+
+**请求方式**
+
+POST
+
+**URL**
+
+```
+/api/mall/order/buyNow
+```
+
+**请求参数**
+
+| 参数名 | 参数类型 | 是否必须 | 说明     |
+| ------ | -------- | -------- | -------- |
+| username| str    | 必须     | 用户名 |
+| goodsId | integer  | 必须     | 商品id |
+| num | integer  | 必须     | 商品数量 |
+| specIndex | integer  | 可选     | 商品规格index |
+
+```json
+{
+    "username":"user1",
+    "goodsId":1,
+	"num":1,
+	"specIndex":0
 }
 ```
 

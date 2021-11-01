@@ -227,6 +227,31 @@ export function addCredits(data){
 	})
 }
 
+//立刻购买
+export function buyNow(data){
+	const res = axios.post('/api/mall/order/buyNow', data);
+	return new Promise((resolve,reject)=>{
+		res
+		.then((result)=>{
+	        if(result.status===200){
+	        	return result.data;
+	        }else{
+	        	reject(result.status)
+	        }
+	    })
+	    .then((json)=>{
+    		if(json.code===0){
+                resolve(json.data);
+            }else{
+                reject(json.message);
+            }
+    	})
+	    .catch((e)=>{
+	    	reject(e.toString())
+	    })
+	})
+}
+
 //加入购物车
 export function addOrder(data){
 	const res = axios.post('/api/mall/order/addOrder',data);
@@ -428,8 +453,8 @@ export function deleteItemFromFav(data){
 }
 
 //获得用户订单列表 state -1 订单   0 购物车   -999 收藏
-export function getOrderByState(state,token){
-	const res = axios.get('/api/mall/order/getOrderByState?state='+state+'&token='+token);
+export function getOrderByState(data){
+	const res = axios.get('/api/mall/order/getOrderByState', data);
 	return new Promise((resolve,reject)=>{
 		res
 		.then((result)=>{
@@ -442,6 +467,56 @@ export function getOrderByState(state,token){
 	    .then((json)=>{
     		if(json.code===0){
                 resolve(json.data);
+            }else{
+                reject(json.message);
+            }
+    	})
+	    .catch((e)=>{
+	    	reject(e.toString())
+	    })
+	})
+}
+
+//编辑收货信息
+export function editOrderInfo(data){
+	const res = axios.post('/api/mall/order/editOrderInfo', data);
+	return new Promise((resolve,reject)=>{
+		res
+		.then((result)=>{
+	        if(result.status===200){
+	        	return result.data;
+	        }else{
+	        	reject(result.status)
+	        }
+	    })
+	    .then((json)=>{
+    		if(json.code===0){
+                resolve(json.data);
+            }else{
+                reject(json.message);
+            }
+    	})
+	    .catch((e)=>{
+	    	reject(e.toString())
+	    })
+	})
+}
+
+//充值
+export function cancelOrder(data){
+	const res = axios.post('/api/mall/order/cancelOrder', data);
+	return new Promise((resolve,reject)=>{
+		res
+		.then((result)=>{
+	        if(result.status===200){
+	        	return result.data;
+	        }else{
+	        	reject(result.status)
+	        }
+	    })
+	    .then((json)=>{
+    		if(json.code===0){
+                resolve();
             }else{
                 reject(json.message);
             }
