@@ -120,14 +120,15 @@ export default {
         alert('请先登录！');
         return this.$route.go(0);
       }
-        if (this.num < 1){
-            alert('数量不能小于1')
-            return;
-        }
+      if (this.num < 1){
+          alert('数量不能小于1')
+          return;
+      }
       const res = addToCart({
         username:this.clientToken,
         goodsId:this.goodsId,
         num:this.num,
+        specIndex:0,//TODO
       });
       res
       .then(()=>{

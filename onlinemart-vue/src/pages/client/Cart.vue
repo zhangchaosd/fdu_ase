@@ -102,7 +102,8 @@ export default {
           "name": "phone1",
           "seller": "seller1",
           "price": 500.0,
-          "num": 1
+          "num": 1,
+          "specName": "512G"
         },
         {
           "goodsId": 2,
@@ -110,7 +111,8 @@ export default {
           "name": "phone2",
           "seller": "seller2",
           "price": 500.0,
-          "num": 2
+          "num": 2,
+          "specName": ""
         },
         {
           "goodsId": 3,
@@ -118,7 +120,8 @@ export default {
           "name": "phone2",
           "seller": "seller2",
           "price": 500.0,
-          "num": 2
+          "num": 2,
+          "specName": ""
         },
         {
           "goodsId": 4,
@@ -126,7 +129,8 @@ export default {
           "name": "phone2",
           "seller": "seller2",
           "price": 500.0,
-          "num": 2
+          "num": 2,
+          "specName": ""
         },
         {
           "goodsId": 5,
@@ -134,7 +138,8 @@ export default {
           "name": "phone2",
           "seller": "seller2",
           "price": 500.0,
-          "num": 2
+          "num": 2,
+          "specName": ""
         },
         {
           "goodsId": 6,
@@ -142,7 +147,8 @@ export default {
           "name": "phone2",
           "seller": "seller2",
           "price": 500.0,
-          "num": 2
+          "num": 2,
+          "specName": ""
         }
       ]
       this.debugg="sfds"

@@ -281,12 +281,14 @@ POST
 | username| str    | 必须     | 用户名 |
 | goodsId | integer  | 必须     | 商品id |
 | num | integer  | 必须     | 商品数量 |
+| specIndex | integer  | 可选     | 商品规格index |
 
 ```json
 {
     "username":"user1",
     "goodsId":1,
-	"num":1
+	"num":1,
+	"specIndex":0
 }
 ```
 
@@ -307,7 +309,7 @@ POST
 
 **接口说明**
 
-获得用户的购物车列表
+获得用户的购物车列表。其中 specName 对应商品规格名称，没有则为空
 
 **请求方式**
 
@@ -343,21 +345,23 @@ GET
 	"code": 0,
 	"data": [
 		{
-			"goodsId": 1,
-			"img": "http://115.29.141.32:8084/static/image/16188185954412.jpg",
-			"name": "phone1",
-			"seller": "seller1",
-			"price": 500.0,
-			"num": 1
-		},
-		{
-			"goodsId": 2,
-			"img": "http://115.29.141.32:8084/static/image/16188185954412.jpg",
-			"name": "phone2",
-			"seller": "seller2",
-			"price": 500.0,
-			"num": 2
-		}
+          "goodsId": 1,
+          "img": "http://115.29.141.32:8084/static/image/16188185954412.jpg",
+          "name": "phone1",
+          "seller": "seller1",
+          "price": 500.0,
+          "num": 1,
+          "specName": "16G + 512G"
+        },
+        {
+          "goodsId": 2,
+          "img": "http://115.29.141.32:8084/static/image/16188185954412.jpg",
+          "name": "phone2",
+          "seller": "seller2",
+          "price": 500.0,
+          "num": 2,
+          "specName": ""
+        }
 	]
 }
 ```
