@@ -353,8 +353,8 @@ export function changeItemNumInCart(data){
 }
 
 //删除购物车的商品
-export function deleteItemFromCart(data){
-	const res = axios.post('/api/mall/order/deleteItemFromCart', data);
+export function deleteItemsFromCart(data){
+	const res = axios.post('/api/mall/order/deleteItemsFromCart', data);
 	return new Promise((resolve,reject)=>{
 		res
 		.then((result)=>{

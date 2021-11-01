@@ -455,7 +455,7 @@ GET
 }
 ```
 
-### 2.2 deleteItemFromCart
+### 2.2 deleteItemsFromCart
 
 **接口说明**
 
@@ -468,7 +468,7 @@ POST
 **URL**
 
 ```
-/api/mall/order/deleteItemFromCart
+/api/mall/order/deleteItemsFromCart
 ```
 
 **请求参数**
@@ -476,12 +476,12 @@ POST
 | 参数名 | 参数类型 | 是否必须 | 说明     |
 | ------ | -------- | -------- | -------- |
 | username  | str      | 必须     | 用户昵称 |
-| index | integer  | 必须     | 商品在购物车中的下标序号 |
+| deleteList | list  | 必须     | 商品在购物车中的下标序号列表 |
 
 ```json
 {
-    "username":"user1",
-    "index":1
+	"username":"user1",
+    "deleteList":[0,2]
 }
 ```
 
@@ -563,10 +563,12 @@ POST
 
 | 参数名 | 参数类型 | 是否必须 | 说明     |
 | ------ | -------- | -------- | -------- |
+| username   | str     | 必须     | 用户名 |
 | settleList   | list     | 必须     | 购物车里要结算的商品序号列表 |
 
 ```json
 {
+	"username":"user1",
     "settleList":[0,2]
 }
 ```
@@ -634,6 +636,7 @@ GET
 		"orderId":10,
 		"state":0,
 		"createtime": "2021-04-20 20:40:30",
+		"amount": 1500,
 		"suborders":
 		[{
 			"orderId": 1811,
@@ -763,7 +766,7 @@ POST
 
 **接口说明**
 
-取消订单
+取消订单，包括了退款功能
 
 **请求方式**
 
