@@ -177,6 +177,56 @@ export function askGoodsMsg(data){
 	})
 }
 
+//获得用户余额
+export function getCredits(data){
+	const res = axios.get('/api/mall/getCredits', data);
+	return new Promise((resolve,reject)=>{
+		res
+		.then((result)=>{
+	        if(result.status===200){
+	        	return result.data;
+	        }else{
+	        	reject(result.status)
+	        }
+	    })
+	    .then((json)=>{
+    		if(json.code===0){
+                resolve(json.data);
+            }else{
+                reject(json.message);
+            }
+    	})
+	    .catch((e)=>{
+	    	reject(e.toString())
+	    })
+	})
+}
+
+//充值
+export function addCredits(data){
+	const res = axios.post('/api/mall/addCredits', data);
+	return new Promise((resolve,reject)=>{
+		res
+		.then((result)=>{
+	        if(result.status===200){
+	        	return result.data;
+	        }else{
+	        	reject(result.status)
+	        }
+	    })
+	    .then((json)=>{
+    		if(json.code===0){
+                resolve();
+            }else{
+                reject(json.message);
+            }
+    	})
+	    .catch((e)=>{
+	    	reject(e.toString())
+	    })
+	})
+}
+
 //加入购物车
 export function addOrder(data){
 	const res = axios.post('/api/mall/order/addOrder',data);
