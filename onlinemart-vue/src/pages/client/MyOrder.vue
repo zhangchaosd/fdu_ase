@@ -130,7 +130,7 @@ export default {
     },
 
     confirmPay(orderId){
-      const res = pay(orderId);
+      const res = pay({orderId:orderId});
       res
       .then(()=>{
         alert('支付成功！');
@@ -145,7 +145,7 @@ export default {
       })
     },
     confirmReceive(orderId){
-      const res = confirmReceive(orderId);
+      const res = confirmReceive({orderId:orderId});
       res
       .then(()=>{
         alert('确认收货成功！');

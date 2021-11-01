@@ -553,8 +553,8 @@ export function deleteOrder(id){
 }
 
 //确认收货
-export function confirmReceive(id){
-	const res = axios.get('/api/mall/order/confirmReceive?id='+id);
+export function confirmReceive(data){
+	const res = axios.post('/api/mall/order/confirmReceive',data);
 	return new Promise((resolve,reject)=>{
 		res
 		.then((result)=>{
@@ -578,8 +578,8 @@ export function confirmReceive(id){
 }
 
 //确认付款
-export function pay(id){
-	const res = axios.get('/api/mall/order/pay?id='+id);
+export function pay(data){
+	const res = axios.post('/api/mall/order/pay',data);
 	return new Promise((resolve,reject)=>{
 		res
 		.then((result)=>{
