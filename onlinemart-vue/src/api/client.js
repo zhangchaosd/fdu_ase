@@ -103,8 +103,8 @@ export function getGoodsList(typeId){
 }
 
 //获得商品详情页信息
-export function getGoodsInfo(id){
-	const res = axios.get('/api/mall/goods/getGoodsInfo?id='+id);
+export function getGoodsInfo(data){
+	const res = axios.get('/api/mall/goods/getGoodsInfo', data);
 	return new Promise((resolve,reject)=>{
 		res
 		.then((result)=>{

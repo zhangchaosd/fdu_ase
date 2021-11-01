@@ -79,9 +79,13 @@ export default {
     },
 
     getGoodsInfo(id){
-      const res = getGoodsInfo(id);
+      const res = getGoodsInfo(
+        {
+          goodsId:id
+        }
+      );
       res
-      .then((data)=>{
+      .then((data)=>{//TODO
         this.goodsId = data.id;
         this.goodsImg = data.img;
         this.goodsName = data.name;

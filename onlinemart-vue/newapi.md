@@ -45,6 +45,80 @@ GET
 }
 ```
 
+#### 2.3.3 getGoodsInfo
+
+**接口说明**
+
+获取商品信息.其中商品没有细分规格的话 specs 就为空。
+
+**请求方式**
+
+GET
+
+**URL**
+
+```
+/api/mall/goods/getGoodsInfo
+```
+
+**请求参数**
+
+| 参数名 | 参数类型 | 是否必须 | 说明   |
+| ------ | -------- | -------- | ------ |
+| goodsId     | integer  | 必须     | 商品id |
+
+```json
+?id=2
+```
+
+**返回参数**
+
+| 参数名 | 参数类型 | 是否必须 | 说明         |
+| ------ | -------- | -------- | ------------ |
+| code   | integer  | 必须     | 状态码       |
+| data   | object   | 必须     | 商品信息     |
+| goodsId| integer  | 必须     | 商品id       |
+| img    | str      | 必须     | 商品图片     |
+| name   | str      | 必须     | 商品名称     |
+| desc   | str      | 必须     | 商品描述     |
+| specsNum  | integer     | 必须     | 商品规格数量 |
+| specs  | list     | 可选     | 商品规格列表 |
+
+```json
+{
+	"code": 0,
+	"data": {
+		"goodsId":1,
+		"img": "http://115.29.141.32:8084/static/image/16188185954412.jpg",
+		"name": "西服套装的",
+		"desc": "新品特卖",
+		"specsNum": 5,
+		"specs": [{
+			"index": 0,
+			"specName": "xl",
+			"price": 500
+		}, {
+			"index": 1,
+			"specName": "l",
+			"price": 500
+		}, {
+			"index": 2,
+			"specName": "m",
+			"price": 13
+		}, {
+			"index": 3,
+			"specName": "s",
+			"price": 13
+		}, {
+			"index": 4,
+			"specName": "xs",
+			"price": 50
+		}],
+		"price": 10
+	}
+}
+```
+
 ### 1.1 getFavList
 
 **接口说明**
