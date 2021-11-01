@@ -1,4 +1,4 @@
-#### 2.3.1 getCredits
+## 1.1 getCredits
 
 **接口说明**
 
@@ -43,7 +43,7 @@ GET
 }
 ```
 
-### 1.3 addCredits
+## 1.2 addCredits
 
 **接口说明**
 
@@ -87,7 +87,7 @@ POST
 ```
 
 
-#### 2.3.1 searchGoods
+## 2.1 searchGoods
 
 **接口说明**
 
@@ -134,7 +134,7 @@ GET
 }
 ```
 
-#### 2.3.3 getGoodsInfo
+## 2.2 getGoodsInfo
 
 **接口说明**
 
@@ -170,6 +170,7 @@ GET
 | img    | str      | 必须     | 商品图片     |
 | name   | str      | 必须     | 商品名称     |
 | desc   | str      | 必须     | 商品描述     |
+| price   | str      | 必须     | specsNum为0时使用这个价格     |
 | specsNum  | integer     | 必须     | 商品规格数量 |
 | specs  | list     | 可选     | 商品规格列表 |
 
@@ -181,6 +182,7 @@ GET
 		"img": "http://115.29.141.32:8084/static/image/16188185954412.jpg",
 		"name": "西服套装的",
 		"desc": "新品特卖",
+		"price": 10,
 		"specsNum": 5,
 		"specs": [{
 			"index": 0,
@@ -202,13 +204,12 @@ GET
 			"index": 4,
 			"specName": "xs",
 			"price": 50
-		}],
-		"price": 10
+		}]
 	}
 }
 ```
 
-### 1.1 getFavList
+## 3.1 getFavList
 
 **接口说明**
 
@@ -260,7 +261,7 @@ GET
 }
 ```
 
-### 1.3 addToFav
+## 3.2 addToFav
 
 **接口说明**
 
@@ -302,7 +303,7 @@ POST
 	"code": 0
 }
 ```
-### 1.2 deleteItemFromFav
+## 3.3 deleteItemFromFav
 
 **接口说明**
 
@@ -347,7 +348,7 @@ POST
 
 
 
-### 1.3 addToCart
+### 4.1 addToCart
 
 **接口说明**
 
@@ -394,7 +395,7 @@ POST
 }
 ```
 
-### 2.1 getCartList
+## 4.2 getCartList
 
 **接口说明**
 
@@ -455,7 +456,7 @@ GET
 }
 ```
 
-### 2.2 deleteItemsFromCart
+## 4.3 deleteItemsFromCart
 
 **接口说明**
 
@@ -498,7 +499,7 @@ POST
 }
 ```
 
-### 2.3 changeItemNumInCart
+## 4.4 changeItemNumInCart
 
 **接口说明**
 
@@ -543,7 +544,7 @@ POST
 }
 ```
 
-### 2.4 settleAccounts
+## 4.5 settleAccounts
 
 **接口说明**
 
@@ -586,7 +587,7 @@ POST
 }
 ```
 
-#### 2.4.2 getOrderByState
+## 5.1 getOrderByState
 
 **接口说明**
 
@@ -637,7 +638,7 @@ GET
 		"state":0,
 		"createtime": "2021-04-20 20:40:30",
 		"amount": 1500,
-		"suborders":
+		"subOrders":
 		[{
 			"orderId": 1811,
 			"goodsNum": 2,
@@ -677,7 +678,7 @@ GET
 }
 ```
 
-#### 2.4.4 pay
+## 5.2 pay
 
 **接口说明**
 
@@ -715,7 +716,7 @@ GET
 ```
 
 
-### 2.4 editOrderInfo
+## 5.3 editOrderInfo
 
 **接口说明**
 
@@ -762,7 +763,7 @@ POST
 }
 ```
 
-### 2.4 cancelOrder
+## 5.4 cancelOrder
 
 **接口说明**
 
@@ -803,7 +804,7 @@ POST
 }
 ```
 
-#### 2.4.6 confirmReceive
+## 5.5 confirmReceive
 
 **接口说明**
 
@@ -840,7 +841,7 @@ GET
 {"code":0}
 ```
 
-### 1.3 buyNow
+## 6.1 buyNow
 
 **接口说明**
 
