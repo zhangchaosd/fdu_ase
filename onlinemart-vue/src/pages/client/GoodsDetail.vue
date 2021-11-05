@@ -34,7 +34,6 @@
 import { mapState } from 'vuex';
 import {getGoodsInfo,settleAccounts,getGoodsList,addToFav,addToCart} from '../../api/client';
 import NumberInput from '../../components/NumberInput';
-import danxuan from '../../components/danxuan';
 import Radio from '../../components/Radio';
 import GoodsItem from '../../components/GoodsItem';
 
@@ -42,7 +41,6 @@ export default {
   name: 'GoodsDetail',
   components:{
     NumberInput,
-    danxuan,
     Radio,
     GoodsItem,
   },
