@@ -15,7 +15,7 @@
             <img :src="item.img" alt="商品图片" />
             <div class="goodsName">
               <p @click="navTo('/mall/goods/'+item.goodsId)">{{item.name}}</p>
-              <p @click="navTo('/mall/goods/'+item.goodsId)">>{{item.specName}}</p>
+              <p @click="navTo('/mall/goods/'+item.goodsId)">{{item.specName}}</p>
             </div>
             <span class="seller">{{item.seller}}</span>
             <span class="unitPrice">{{'￥'+item.price}}</span>
@@ -66,7 +66,9 @@ export default {
     totalAmount(){
       let amount = 0;
       this.orderList.map((item,index)=>{
-        amount+=item.num*item.price;
+        if(this.picked[index]){
+          amount+=item.num*item.price;
+        }
       })
       return amount;
     }

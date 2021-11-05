@@ -57,7 +57,7 @@ export default {
           "price": 500.0
         }, {
           "goodsId": 2,
-          "img": "http://115.29.141.32:8084/static/image/161sd54412.jpg",
+          "img": "http://115.29.141.32:8084/static/image/16188185954412.jpg",
           "name": "水杯",
           "price": 50.0
         }
@@ -151,7 +151,7 @@ export default {
             margin-top: 10px;
           }
         }
-        .unitPrice,.num,.amount{
+        .Price,.num,.amount{
           display: inline-block;
           vertical-align: top;
           width: 15%;
