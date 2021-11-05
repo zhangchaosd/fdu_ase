@@ -14,7 +14,8 @@
           <div class="orderDetail">
             <img :src="item.img" alt="商品图片" />
             <div class="goodsName">
-              <p @click="navTo('/mall/goods/'+item.goodsId)">{{item.name}}+{{index}}</p>
+              <p @click="navTo('/mall/goods/'+item.goodsId)">{{item.name}}</p>
+              <p @click="navTo('/mall/goods/'+item.goodsId)">>{{item.specName}}</p>
             </div>
             <span class="seller">{{item.seller}}</span>
             <span class="unitPrice">{{'￥'+item.price}}</span>
@@ -30,7 +31,7 @@
             <!-- <input @change="numberChange(item.id)" type="text" v-model="item.temGoodsNum" min="1" class="numInput" /> -->
             <span class="amount">{{'￥'+item.num*item.price}}</span>
             <span class="num">
-              <input type="checkbox" v-model="picked[index]" @change="selChange(index)"/>
+              <input type="checkbox" v-model="picked[index]"/>
             </span>
             <button @click="deleteItemFromCart(index)">删除</button>
 
@@ -40,9 +41,9 @@
       <div class="cartFooter">
         <span>应付金额：</span>
         <span class="total">{{'￥'+totalAmount}}</span>
+        <button @click="deleteItemsFromCart">删除所选</button>
         <button @click="settleAccounts">下单</button>
       </div>
-      <div>{{debugg}}</div>
     </div>
     <p class="emptyTips" v-else>购物车为空</p>
   </div>
@@ -151,8 +152,11 @@ export default {
           "specName": ""
         }
       ]
-      this.debugg="sfds"
       //TEST done
+
+      this.orderList.map((item,index)=>{
+        this.picked.push(false);
+      })
     },
     numberChange(itemId, itemNum, itemIndex){
       const res = changeItemNumInCart({
@@ -173,9 +177,28 @@ export default {
       })
     },
     deleteItemFromCart(itemIndex){
-      const res = deleteItemFromCart({
+      const res = deleteItemsFromCart({
         username:this.clientToken,
-        index:itemIndex
+        deleteList:[itemIndex]
+      });
+      res
+      .then(()=>{
+        alert('删除购物车的商品成功！');
+        this.orderList.map((item,index)=>{
+          if(item.id===orderId){
+            this.orderList.splice(index,1);
+          }
+        })
+      })
+      .catch((e)=>{
+        alert(e);
+      })
+    },
+    deleteItemsFromCart(){
+      this.updateSettleList();
+      const res = deleteItemsFromCart({
+        username:this.clientToken,
+        deleteList:this.settleList,
       });
       res
       .then(()=>{
@@ -193,7 +216,16 @@ export default {
     navTo(route){
       this.$router.push(route);
     },
+    updateSettleList(){
+      this.settleList = [];
+      this.orderList.map((item,index)=>{
+          if(this.picked[index]){
+            this.settleList.push(index);
+          }
+        })
+    },
     settleAccounts(){
+      this.updateSettleList();
       if(this.settleList.length==0){
         alert('请选择要结算的商品');
         return;
@@ -212,21 +244,6 @@ export default {
       })
 
     },
-    selChange(index){
-      if(this.picked){
-        this.settleList.push(index);
-      }
-      else{
-        var index2 = this.settleList.findIndex(item => {
-          if (item == index) {
-            return true;
-          }
-        })
-        //TODO
-        this.settleList.splice(2,1)
-      }
-
-    }
   },
 
   mounted(){
@@ -364,13 +381,12 @@ export default {
     }
     .total{
       color:@falseColor;
+      width: 600px;
       font-size: 25px;
-      font-weight: 600;
+      font-weight: 500;
     }
     button{
-      position: absolute;
-      right: 0;
-      top: 0;
+      position: relative;
       width: 100px;
       height: 100%;
       background-color: @thirdColor;
