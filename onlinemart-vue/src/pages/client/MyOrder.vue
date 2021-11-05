@@ -18,6 +18,7 @@
           <div class="orderHeader">
             <span class="orderId">{{'订单号：'+item.orderId}}</span>
             <span class="orderTime">{{item.createtime}}</span>
+            <span class="amount">{{'总计：'+item.amount}}</span>
             <span class="state">{{tagList[item.state+1]}}</span>
             <button v-if="item.state===1" @click="cancelOrder(item.orderId)">申请退款</button>
             <button @click="complainOrder(item.orderId)">投诉订单</button>
@@ -413,8 +414,11 @@ export default {
           .orderId{
             margin-left: 10px;
           }
+          .amount{
+            margin-right: 100px;
+          }
           .state{
-            margin-right: 500px;
+            margin-right: 300px;
           }
           .deleteBtn{
             float: right;
