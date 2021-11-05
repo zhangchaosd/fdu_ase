@@ -17,6 +17,10 @@
             <span>数量：</span>
             <NumberInput v-model="num"/>
           </div>
+          
+          <ul class="box">
+              <li v-for="c,index of specsList" :class="{checked:index==n}" @click="changeSpecs(index)">{{c.specName}}</li>
+          </ul>
           <button class="buyBtn" @click="settleAccounts">立即购买</button>
           <button @click="addToCart">加入购物车</button>
           <button @click="addToFav">收藏商品</button>
@@ -30,6 +34,7 @@
 import { mapState } from 'vuex';
 import {getGoodsInfo,settleAccounts,getGoodsList,addToFav,addToCart} from '../../api/client';
 import NumberInput from '../../components/NumberInput';
+import danxuan from '../../components/danxuan';
 import Radio from '../../components/Radio';
 import GoodsItem from '../../components/GoodsItem';
 
@@ -37,10 +42,12 @@ export default {
   name: 'GoodsDetail',
   components:{
     NumberInput,
+    danxuan,
     Radio,
-    GoodsItem
+    GoodsItem,
   },
   computed:{
+    el : ".box",
     ...mapState([
       'clientToken',
       'clientName'
@@ -69,11 +76,17 @@ export default {
       curIndex:0,
       rate:'',
       commentList:Array,
-      goodsList:[]
+      goodsList:[],
+      specsNum:0,
+      specsList:[],
+      selected:-1
     }
   },
 
   methods:{
+    changeSpecs(index){
+      this.selected = index;//this指向app
+    },
     changeIndex(i){
       this.curIndex = i;
     },
@@ -92,6 +105,8 @@ export default {
         this.goodsDesc = data.desc;
         this.goodsSeller = data.seller;
         this.goodsPrice = data.price;
+        this.specsNum = data.specsNum;
+        this.specsList = data.specs;
       })
       .catch((e)=>{
         alert(e);
@@ -103,6 +118,28 @@ export default {
       this.goodsDesc = "这是商品描述";
       this.goodsSeller = "seller1";
       this.goodsPrice = 10;
+      this.specsNum = 5;
+      this.specsList = [{
+        "index": 0,
+        "specName": "xl",
+        "price": 500
+      }, {
+        "index": 1,
+        "specName": "l",
+        "price": 500
+      }, {
+        "index": 2,
+        "specName": "m",
+        "price": 13
+      }, {
+        "index": 3,
+        "specName": "s",
+        "price": 13
+      }, {
+        "index": 4,
+        "specName": "xs",
+        "price": 50
+      }];
       //test
     },
 
@@ -132,11 +169,15 @@ export default {
           alert('数量不能小于1')
           return;
       }
+      if (this.specsNum > 0 && this.selected == -1){
+          alert('请选择商品规格')
+          return;
+      }
       const res = addToCart({
         username:this.clientToken,
         goodsId:this.goodsId,
         num:this.num,
-        specIndex:0,//TODO
+        specIndex:this.selected,
       });
       res
       .then(()=>{
@@ -155,11 +196,15 @@ export default {
           alert('数量不能小于1')
           return;
       }
+      if (this.specsNum > 0 && this.selected == -1){
+          alert('请选择商品规格')
+          return;
+      }
       const res = buyNow({
         username:this.clientToken,
         goodsId:this.id,
         num:this.num,
-        specIndex:0,//TODO
+        specIndex:this.selected,
       });
       res
       .then(()=>{
@@ -202,6 +247,28 @@ export default {
         display: inline-block;
         float: right;
         width: 700px;
+        body{margin:0;}
+        ul{
+            padding:0; list-style:none; 
+            margin:15px 15px;
+        }
+        li{
+            width:580px; height:50px; 
+            display:inline-block;
+            border-radius:8px; border:1px #000 solid;
+            text-align:center; line-height:50px;
+            cursor:pointer; 
+            transition:all 0.3s linear;
+            margin-left:5px;
+        }
+        li:hover{
+            background-color:#b4a078; color:#fff; 
+            border:1px #fff solid;
+        }    
+        li.checked{
+            background-color:#b4a078; color:#fff; 
+            border:1px #fff solid;
+        }
         .infoBox{
           margin-bottom: 30px;
           .name{
