@@ -50,7 +50,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import {getCartList,changeItemNumInCart,deleteItemFromCart,settleAccounts} from '../../api/client';
+import {getCartList,changeItemNumInCart,deleteItemsFromCart,settleAccounts} from '../../api/client';
 import NumberInput from '../../components/NumberInput';
 
 export default {

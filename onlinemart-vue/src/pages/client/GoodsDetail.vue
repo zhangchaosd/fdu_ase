@@ -86,16 +86,24 @@ export default {
       );
       res
       .then((data)=>{//TODO
-        this.goodsId = data.id;
+        this.goodsId = data.goodsId;
         this.goodsImg = data.img;
         this.goodsName = data.name;
         this.goodsDesc = data.desc;
         this.goodsSeller = data.seller;
-        this.price = data.price;
+        this.goodsPrice = data.price;
       })
       .catch((e)=>{
         alert(e);
-      })
+      });
+      //test
+      this.goodsId = 1;
+      this.goodsImg = "http://115.29.141.32:8084/static/image/16188185954412.jpg";
+      this.goodsName = "西服套装的";
+      this.goodsDesc = "这是商品描述";
+      this.goodsSeller = "seller1";
+      this.goodsPrice = 10;
+      //test
     },
 
     addToFav(){

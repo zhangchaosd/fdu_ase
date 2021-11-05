@@ -125,12 +125,25 @@ GET
 ```json
 {
 	"code": 0,
-	"data": [{
-		"id": 546,
-		"img": "http://115.29.141.32:8084/static/image/1618838668103gaitubao_2_jpg.jpg",
-		"name": "iphone 12",
-		"price": 7699.0,
-	}]
+	"data": [
+      {
+        "goodsId": 546,
+        "img": "http://115.29.141.32:8084/static/image/1618838668103gaitubao_2_jpg.jpg",
+        "name": "iphone 12",
+        "price": 7699.0,
+      },
+      {
+        "goodsId": 1,
+        "img": "http://115.29.141.32:8084/static/image/1618838668103gaitubao_2_jpg.jpg",
+        "name": "iphone 13",
+        "price": 7999.0,
+      },{
+        "goodsId": 2,
+        "img": "http://115.29.141.32:8084/static/image/1618838668103gaitubao_2_jpg.jpg",
+        "name": "iphone 15",
+        "price": 8699.0,
+      },
+      ]
 }
 ```
 
@@ -170,6 +183,7 @@ GET
 | img    | str      | 必须     | 商品图片     |
 | name   | str      | 必须     | 商品名称     |
 | desc   | str      | 必须     | 商品描述     |
+| seller   | str      | 必须     | 卖家     |
 | price   | str      | 必须     | specsNum为0时使用这个价格     |
 | specsNum  | integer     | 必须     | 商品规格数量 |
 | specs  | list     | 可选     | 商品规格列表 |
@@ -182,6 +196,7 @@ GET
 		"img": "http://115.29.141.32:8084/static/image/16188185954412.jpg",
 		"name": "西服套装的",
 		"desc": "新品特卖",
+		"seller": "seller1",
 		"price": 10,
 		"specsNum": 5,
 		"specs": [{

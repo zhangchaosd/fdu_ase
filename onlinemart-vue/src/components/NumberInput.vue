@@ -10,11 +10,11 @@ export default {
   props:{
     min:{
       type:Number,
-      default:0
+      default:1
     },
     max:{
       type:Number,
-      default:1
+      default:1000
     },
     initNum:{
       type:Number,

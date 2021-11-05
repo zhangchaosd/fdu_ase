@@ -13,7 +13,7 @@
         v-for="(item,index) in sortedList" 
         :style="{marginRight: (index+1)%4===0?'0px':'25px'}"
         :key="+item.id"
-        :id="item.id"
+        :id="item.goodsId"
         :img="item.img"
         :name="item.name"
         :price="item.price"
@@ -84,6 +84,28 @@ export default {
       .catch((e)=>{
         alert(e);
       })
+      //test
+      this.goodsList = [
+      {
+        "goodsId": 546,
+        "img": "http://115.29.141.32:8084/static/image/1618838668103gaitubao_2_jpg.jpg",
+        "name": "iphone 12",
+        "price": 7699.0,
+      },
+      {
+        "goodsId": 1,
+        "img": "http://115.29.141.32:8084/static/image/1618838668103gaitubao_2_jpg.jpg",
+        "name": "iphone 13",
+        "price": 7999.0,
+      },{
+        "goodsId": 2,
+        "img": "http://115.29.141.32:8084/static/image/1618838668103gaitubao_2_jpg.jpg",
+        "name": "iphone 15",
+        "price": 8699.0,
+      },
+      
+      ];
+      //test
     },
     changeSortMode(mode){
       if(mode===3){
