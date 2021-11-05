@@ -452,7 +452,7 @@ export function deleteItemFromFav(data){
 	})
 }
 
-//获得用户订单列表 state -1 订单   0 购物车   -999 收藏
+//获得用户订单列表
 export function getOrderByState(data){
 	const res = axios.get('/api/mall/order/getOrderByState', data);
 	return new Promise((resolve,reject)=>{
@@ -502,9 +502,10 @@ export function editOrderInfo(data){
 	})
 }
 
-//充值
-export function cancelOrder(data){
-	const res = axios.post('/api/mall/order/cancelOrder', data);
+
+//删除订单
+export function deleteOrder(id){
+	const res = axios.get('/api/mall/order/deleteOrder?id='+id);
 	return new Promise((resolve,reject)=>{
 		res
 		.then((result)=>{
@@ -527,9 +528,34 @@ export function cancelOrder(data){
 	})
 }
 
-//删除订单
-export function deleteOrder(id){
-	const res = axios.get('/api/mall/order/deleteOrder?id='+id);
+//申请退款
+export function cancelOrder(data){
+	const res = axios.post('/api/mall/order/cancelOrder',data);
+	return new Promise((resolve,reject)=>{
+		res
+		.then((result)=>{
+	        if(result.status===200){
+	        	return result.data;
+	        }else{
+	        	reject(result.status)
+	        }
+	    })
+	    .then((json)=>{
+    		if(json.code===0){
+                resolve();
+            }else{
+                reject(json.message);
+            }
+    	})
+	    .catch((e)=>{
+	    	reject(e.toString())
+	    })
+	})
+}
+
+//投诉订单
+export function complainOrder(data){
+	const res = axios.post('/api/mall/order/complainOrder',data);
 	return new Promise((resolve,reject)=>{
 		res
 		.then((result)=>{

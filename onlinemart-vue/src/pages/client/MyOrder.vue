@@ -19,7 +19,10 @@
             <span class="orderId">{{'订单号：'+item.orderId}}</span>
             <span class="orderTime">{{item.createtime}}</span>
             <span class="state">{{tagList[item.state+1]}}</span>
-            <span class="deleteBtn" @click="deleteOrder(item.id)"><i class="iconfont icon-close" /></span>
+            <button v-if="item.state===1" @click="cancelOrder(item.orderId)">申请退款</button>
+            <button @click="complainOrder(item.orderId)">投诉订单</button>
+            <span class="deleteBtn" @click="deleteOrder(item.orderId)"><i class="iconfont icon-close" /></span>
+            <button v-if="item.state===0" @click="confirmPay(item.id)">付款</button>
           </div>
 
           <ul class="suborderList">
@@ -41,10 +44,10 @@
                     <span class="unitPrice">{{'￥'+item3.price}}</span>
                     <span class="num">{{item3.num}}</span>
                     <span class="amount">{{'￥'+item3.amount}}</span>
-                    <button v-if="item.state===0" @click="confirmPay(item.id)">付款</button>
+                    <button v-if="item.state===0">未付款</button>
+                    <button v-if="item.state===1">等待发货</button>
                     <button v-else-if="item.state===2" @click="confirmReceive(item.id)">确认收货</button>
-                    <button v-else-if="item.state===3 && !item.hasComment" @click="showPopup(item.id,item.goods.id,item.goods.goodsDetailId)">评价</button>
-                    <span class="hasComment" v-else-if="item.state===3 && item.hasComment">已评价</span>
+                    <button v-else-if="item.state===3" >已完成</button>
                   </div>
                 </li>
               </ul>
@@ -58,7 +61,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import {getOrderByState,deleteOrder,confirmReceive,pay,sendComment} from '../../api/client';
+import {getOrderByState,deleteOrder,cancelOrder,complainOrder,confirmReceive,pay,sendComment} from '../../api/client';
 import Popup from '../../components/Popup';
 
 export default {
@@ -112,7 +115,7 @@ export default {
       //test
       this.orderList = [{ 
         "orderId":120,
-        "state":0,
+        "state":1,
         "createtime": "2021-05-20 20:40:30",
         "amount": 1500,
         "subOrders":
@@ -215,6 +218,34 @@ export default {
             this.orderList.splice(index,1);
           }
         })
+      })
+      .catch((e)=>{
+        alert(e);
+      })
+    },
+
+    cancelOrder(orderId){
+      const res = cancelOrder({
+        orderId:orderId
+      });
+      res
+      .then(()=>{
+        alert('申请退款成功！');
+      })
+      .catch((e)=>{
+        alert(e);
+      })
+    },
+
+    complainOrder(orderId){
+      const res = complainOrder({
+        username:this.clientToken,
+        orderId:orderId,
+        reason:"bad product",
+      });
+      res
+      .then(()=>{
+        alert('投诉订单成功！');
       })
       .catch((e)=>{
         alert(e);
@@ -379,8 +410,11 @@ export default {
           .orderTime{
             font-weight: 600;
           }
-          .orderId,.state{
+          .orderId{
             margin-left: 10px;
+          }
+          .state{
+            margin-right: 500px;
           }
           .deleteBtn{
             float: right;
@@ -388,6 +422,15 @@ export default {
             i{
 
             }
+          }
+          button{
+            position: relative;
+            width: 70px;
+            height: 30px;
+            border-radius: 3px;
+            background-color: @thirdColor;
+            color:white;
+            border: none;
           }
         }
         .suborderList{
