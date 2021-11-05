@@ -19,7 +19,7 @@
           </div>
           
           <ul class="box">
-              <li v-for="c,index of specsList" :class="{checked:index==n}" @click="changeSpecs(index)">{{c.specName}}</li>
+              <li v-for="c,index of specsList" :class="{checked:index==selected}" @click="changeSpecs(index)">{{c.specName}}</li>
           </ul>
           <button class="buyBtn" @click="settleAccounts">立即购买</button>
           <button @click="addToCart">加入购物车</button>
@@ -32,7 +32,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import {getGoodsInfo,settleAccounts,getGoodsList,addToFav,addToCart} from '../../api/client';
+import {buyNow,getGoodsInfo,settleAccounts,getGoodsList,addToFav,addToCart} from '../../api/client';
 import NumberInput from '../../components/NumberInput';
 import Radio from '../../components/Radio';
 import GoodsItem from '../../components/GoodsItem';
