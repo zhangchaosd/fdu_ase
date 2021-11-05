@@ -14,48 +14,45 @@
         <span>交易操作</span>
       </div>
       <ul class="orderList">
-        <li v-for="(item,index) in orderList" :key="'order'+item.id">
+        <li v-for="(item,index) in orderList" :key="'order'+item.orderId">
           <div class="orderHeader">
+            <span class="orderId">{{'订单号：'+item.orderId}}</span>
             <span class="orderTime">{{item.createtime}}</span>
-            <span class="orderId">{{'订单号：'+item.id}}</span>
             <span class="state">{{tagList[item.state+1]}}</span>
             <span class="deleteBtn" @click="deleteOrder(item.id)"><i class="iconfont icon-close" /></span>
           </div>
-          <div class="orderDetail">
-            <img :src="item.goods.img" alt="商品图片" />
-            <div class="goodsName">
-              <p @click="navTo('/mall/goods/'+item.goods.id)">{{item.goods.name}}</p>
-              <span>{{item.goods.spec}}</span>
-            </div>
-            <span class="unitPrice">{{'￥'+item.goods.unitPrice}}</span>
-            <span class="num">{{item.goodsNum}}</span>
-            <span class="amount">{{'￥'+item.amount}}</span>
-            <button v-if="item.state===0" @click="confirmPay(item.id)">确认付款</button>
-            <button v-else-if="item.state===2" @click="confirmReceive(item.id)">确认收货</button>
-            <button v-else-if="item.state===3 && !item.hasComment" @click="showPopup(item.id,item.goods.id,item.goods.goodsDetailId)">评价</button>
-            <span class="hasComment" v-else-if="item.state===3 && item.hasComment">已评价</span>
-          </div>
+
+          <ul class="suborderList">
+            <li v-for="(item2,index2) in item.subOrders" :key="'suborder'+item2.orderId">
+              <div class="suborderHeader">
+                <span class="orderId">{{'子订单号：'+item2.orderId}}</span>
+                <span class="goodsNum">{{'货物数量：'+item2.goodsNum}}</span>
+                <span class="seller">{{'卖家：'+item2.seller}}</span>
+                <span class="amount">{{'总计：'+item2.amount}}</span>
+              </div>
+              <ul>
+                <li v-for="(item3,index3) in item2.goods" :key="'goodsId'+item3.goodsId">
+                  <div class="orderDetail">
+                    <img :src="item3.img" alt="商品图片" />
+                    <div class="goodsName">
+                      <p @click="navTo('/mall/goods/'+item3.goodsId)">{{item3.name}}</p>
+                      <span>{{item3.specName}}</span>
+                    </div>
+                    <span class="unitPrice">{{'￥'+item3.price}}</span>
+                    <span class="num">{{item3.num}}</span>
+                    <span class="amount">{{'￥'+item3.amount}}</span>
+                    <button v-if="item.state===0" @click="confirmPay(item.id)">付款</button>
+                    <button v-else-if="item.state===2" @click="confirmReceive(item.id)">确认收货</button>
+                    <button v-else-if="item.state===3 && !item.hasComment" @click="showPopup(item.id,item.goods.id,item.goods.goodsDetailId)">评价</button>
+                    <span class="hasComment" v-else-if="item.state===3 && item.hasComment">已评价</span>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
         </li>
       </ul>
     </div>
-    <Popup title="商品评价" @popupClose="closePopup" v-show="popupShow">
-      <div class="popupContent" slot="popupContent">
-        <div class="scoreBox">
-          <span class="tips">评分：</span>
-          <i 
-            class="iconfont icon-collection_fill" 
-            v-for="(item,index) in 5"
-            :key="'star'+index"
-            :style="{color:(index+1)<=curStar?'#f9bd4f':'white'}"
-            @mouseover="setCurStar(index+1)"
-            @mouseout="setCurStar(0)"
-            @click="confirmStar(index+1)"
-          />
-        </div>
-        <textarea v-model="comment" cols="30" rows="10" placeholder="请输入评论内容"></textarea>
-        <button @click="sendComment">发表</button>
-      </div>
-    </Popup>
   </div>
 </template>
 
@@ -112,6 +109,101 @@ export default {
       .catch((e)=>{
         alert(e);
       })
+      //test
+      this.orderList = [{ 
+        "orderId":120,
+        "state":0,
+        "createtime": "2021-05-20 20:40:30",
+        "amount": 1500,
+        "subOrders":
+        [{
+          "orderId": 1811,
+          "goodsNum": 2,
+          "amount": 1000,
+          "seller": "seller1",
+          "goods": [{
+            "goodsId": 476,
+            "img": "http://115.29.141.32:8084/static/image/16188185954412.jpg",
+            "name": "西服套装的",
+            "specName": "16G + 512G",
+            "price": 500,
+            "amount":500,
+            "num":1
+          },
+          {
+            "goodsId": 479,
+            "img": "http://115.29.141.32:8084/static/image/16188185954412.jpg",
+            "name": "西服套装的22222222222222",
+            "specName": "",
+            "price": 500,
+            "amount":500,
+            "num":1
+          }]
+        }, {
+          "orderId": 1812,
+          "goodsNum": 1,
+          "amount": 500,
+          "seller": "seller2",
+          "goods": [{
+            "goodsId": 476,
+            "img": "http://115.29.141.32:8084/static/image/16188185954412.jpg",
+            "name": "西服套装的",
+            "specName": "16G + 512G",
+            "price": 500,
+            "amount":500,
+            "num":1
+          }]
+        }]
+      },
+      { 
+        "orderId":10,
+        "state":0,
+        "createtime": "2021-04-20 20:40:30",
+        "amount": 1500,
+        "subOrders":
+        [{
+          "orderId": 1811,
+          "goodsNum": 2,
+          "amount": 1000,
+          "seller": "seller1",
+          "goods": [{
+            "goodsId": 476,
+            "img": "http://115.29.141.32:8084/static/image/16188185954412.jpg",
+            "name": "西服套装的",
+            "specName": "16G + 512G",
+            "price": 500,
+            "amount":500,
+            "num":1
+          },
+          {
+            "goodsId": 479,
+            "img": "http://115.29.141.32:8084/static/image/16188185954412.jpg",
+            "name": "西服套装的22222222222222",
+            "specName": "",
+            "price": 500,
+            "amount":500,
+            "num":1
+          }]
+        }, {
+          "orderId": 1812,
+          "goodsNum": 1,
+          "amount": 500,
+          "seller": "seller2",
+          "goods": [{
+            "goodsId": 476,
+            "img": "http://115.29.141.32:8084/static/image/16188185954412.jpg",
+            "name": "西服套装的",
+            "specName": "16G + 512G",
+            "price": 500,
+            "amount":500,
+            "num":1
+          }]
+        }]
+      }]
+
+      //test
+
+
     },
     deleteOrder(orderId){
       const res = deleteOrder(orderId);
@@ -298,52 +390,77 @@ export default {
             }
           }
         }
-        .orderDetail{
-          width: 100%;
-          padding: 10px;
-          position: relative;
-          overflow: hidden;
-          img{
-            width: 84px;
-            height: 84px;
-            display: inline-block;
-          }
-          .goodsName{
-            display: inline-block;
-            margin-left: 5px;
-            width: 230px;
-            vertical-align: top;
-            p{
-              cursor: pointer;
-              line-height: 20px;
-              &:hover{
-                text-decoration:underline;
+        .suborderList{
+          li{
+            .suborderHeader{
+              background-color: #f1f1f1;
+              height: 40px;
+              line-height: 40px;
+              padding: 0 5px;
+              .orderTime{
+                font-weight: 600;
+              }
+              .orderId,.state{
+                margin-left: 10px;
+              }
+              .deleteBtn{
+                float: right;
+                cursor: pointer;
+                i{
+
+                }
               }
             }
-            span{
-              color:@fontDefaultColor;
-              display: block;
-              margin-top: 10px;
+            li{
+              .orderDetail{
+                width: 100%;
+                padding: 10px;
+                position: relative;
+                overflow: hidden;
+                img{
+                  width: 84px;
+                  height: 84px;
+                  display: inline-block;
+                }
+                .goodsName{
+                  display: inline-block;
+                  margin-left: 5px;
+                  width: 230px;
+                  vertical-align: top;
+                  p{
+                    cursor: pointer;
+                    line-height: 20px;
+                    &:hover{
+                      text-decoration:underline;
+                    }
+                  }
+                  span{
+                    color:@fontDefaultColor;
+                    display: block;
+                    margin-top: 10px;
+                  }
+                }
+                .unitPrice,.num,.amount,.hasComment{
+                  display: inline-block;
+                  vertical-align: top;
+                  width: 15%;
+                  height: 85px;
+                  line-height: 85px;
+                  text-align: center;
+                }
+                button{
+                  position: absolute;
+                  right: 90px;
+                  bottom: 40px;
+                  width: 70px;
+                  height: 30px;
+                  border-radius: 3px;
+                  background-color: @thirdColor;
+                  color:white;
+                  border: none;
+                }
+              }
             }
-          }
-          .unitPrice,.num,.amount,.hasComment{
-            display: inline-block;
-            vertical-align: top;
-            width: 15%;
-            height: 85px;
-            line-height: 85px;
-            text-align: center;
-          }
-          button{
-            position: absolute;
-            right: 90px;
-            bottom: 40px;
-            width: 70px;
-            height: 30px;
-            border-radius: 3px;
-            background-color: @thirdColor;
-            color:white;
-            border: none;
           }
         }
       }

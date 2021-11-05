@@ -648,7 +648,7 @@ GET
 ```json
 {
 	"code": 0,
-	"data":{ 
+	"data":[{ 
 		"orderId":10,
 		"state":0,
 		"createtime": "2021-04-20 20:40:30",
@@ -665,6 +665,7 @@ GET
 				"name": "西服套装的",
 				"specName": "16G + 512G",
 				"price": 500,
+				"amount":500,
 				"num":1
 			},
 			{
@@ -673,6 +674,7 @@ GET
 				"name": "西服套装的22222222222222",
 				"specName": "",
 				"price": 500,
+				"amount":500,
 				"num":1
 			}]
 		}, {
@@ -686,10 +688,11 @@ GET
 				"name": "西服套装的",
 				"specName": "16G + 512G",
 				"price": 500,
+				"amount":500,
 				"num":1
 			}]
 		}]
-	}
+	}]
 }
 ```
 
