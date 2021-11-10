@@ -4,8 +4,12 @@
       <div class="container clear">
         <div class="left" v-if="clientToken">
           <span class="name">欢迎您，{{clientName}}</span>
-          <span @click="navTo1('/mall/personal')">个人中心</span>
-          <span @click="logout">退出登录</span>
+          <button @click="navTo1('/mall/personal')">个人中心</button>
+          <span class="yue">    余额：{{balance}} 元</span>
+          <button @click="refresh">刷新</button>
+          <input type="number" v-model="creditsChange">
+          <button @click="addCredits">充值</button>
+          <button @click="logout">退出登录</button>
         </div>
         <div class="left" v-else>
           <span @click="navTo('MallLogin', 'login')">登录</span>
@@ -26,6 +30,7 @@ import { mapState,mapMutations } from 'vuex';
 import NoticeList from '../../components/NoticeList';
 import {getClientSize,backToTop} from '../../util/util';
 import {logoutClient} from '../../api/client';
+import {getCredits,addCredits} from '../../api/client';
 
 export default {
   name: 'Mall',
@@ -46,7 +51,9 @@ export default {
       notices:['特别消息:生鲜大放送......',' 注册即可获千元好礼......','美味大闸蟹,源自阳澄湖......'],
       clientHeight:getClientSize().height,
       shouldShowBT:false,
-      token:''
+      token:'',
+      creditsChange:0,
+      balance:0,
     }
   },
 
@@ -73,6 +80,29 @@ export default {
           alert(e);
       })
       this.$router.go(0);
+    },
+    addCredits(){
+      const res = addCredits({
+          username: this.clientToken,
+          creditsChange: this.creditsChange
+      });
+      res.then(()=>{
+      })
+      .catch((e)=>{
+          alert(e);
+      })
+      refresh();
+    },
+    refresh(){
+      const res = getCredits({
+          username: this.clientToken
+      });
+      res.then((data)=>{
+        this.balance = data.credits;
+      })
+      .catch((e)=>{
+          alert(e);
+      })
     },
     backToTop(){
       backToTop();
@@ -143,6 +173,9 @@ export default {
           cursor: pointer;
         }
         .name{
+          cursor: default;
+        }
+        .balance{
           cursor: default;
         }
       }
